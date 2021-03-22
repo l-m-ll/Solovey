@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import com.example.solovey.settings.Settings
-import com.example.solovey.settings.SettingsInterface
 
 open class SettingsActivity : AppCompatActivity() {
     private lateinit var sndDownButton: Button
@@ -21,14 +19,12 @@ open class SettingsActivity : AppCompatActivity() {
         sndDownButton = findViewById(R.id.snd_down)
         sndUpButton = findViewById(R.id.snd_up)
 
+
         Settings.volumeView = volumeView
+        Settings.volumeTextView = findViewById(R.id.volume_text)
         Settings.updateVolume()
 
         sndDownButton.setOnClickListener { Settings.decrementVolume() }
         sndUpButton.setOnClickListener { Settings.incrementVolume() }
-    }
-
-    fun updateVolume(value: Int) {
-
     }
 }

@@ -7,7 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.runner.RunWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.solovey.settings.Settings
 import org.junit.Rule
 import org.junit.Test
 
