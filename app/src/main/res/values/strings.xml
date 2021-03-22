@@ -3,4 +3,8 @@
     <string name="settings_btn">Settings</string>
     <string name="player_btn">Player</string>
     <string name="playList_btn">Play list</string>
+    <string name="snd_down">-</string>
+    <string name="snd_up">+</string>
+    <string name="volume">volume</string>
+    <string name="volume_value">50</string>
 </resources>
