@@ -10,39 +10,36 @@ import android.os.Message
 import android.view.View
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_play.*
-import kotlin.math.round
 
 class activity_play : AppCompatActivity() {
     private lateinit var mp3: MediaPlayer
-    private var timePassed: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play)
-        mp3 = MediaPlayer.create(this, R.raw.solovey)
+        initPlayer(R.raw.solovey)
+    }
+
+    fun initPlayer (song: Int) {
+        mp3 = MediaPlayer.create(this, song)
         timeBar.max = (mp3.duration / 1000).toInt()
         timeBar.progress = 0
         mp3.isLooping = true
         mp3.setVolume(0.5f, 0.5f)
         mp3.start()
 
-
         timeBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                   mp3.seekTo(progress)
+                    mp3.seekTo(progress)
                 }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                println(seekBar.progress)
-                mp3.seekTo(seekBar.progress * 1000)
-                timeBar.progress = seekBar.progress
+                switchOnTimeBar(seekBar)
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                println(seekBar.progress)
-                mp3.seekTo(seekBar.progress * 1000)
-                timeBar.progress = seekBar.progress
+                switchOnTimeBar(seekBar)
             }
         })
 
@@ -60,6 +57,15 @@ class activity_play : AppCompatActivity() {
         }).start()
     }
 
+    fun getMp3() : MediaPlayer {
+        return mp3
+    }
+
+    fun switchOnTimeBar(seekBar : SeekBar) {
+        mp3.seekTo(seekBar.progress * 1000)
+        timeBar.progress = seekBar.progress
+    }
+
     @SuppressLint("HandlerLint")
     var handler = object: Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -68,13 +74,23 @@ class activity_play : AppCompatActivity() {
         }
     }
 
-    fun clickPlayBtn(v : View) {
+    fun clickPlayBtn(v : View) : String {
         if (mp3.isPlaying) {
             mp3.pause()
             pause.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24)
+            return "pause"
         } else {
             mp3.start()
             pause.setBackgroundResource(R.drawable.ic_baseline_pause_24)
+            return "start"
         }
+    }
+
+    fun clickGoForBtn(v : View) {
+
+    }
+
+    fun clickGoBackBtn(v : View) {
+
     }
 }
