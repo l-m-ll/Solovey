@@ -2,8 +2,6 @@ package com.example.solovey
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_play_list.*
 
 class PlayListActivity : AppCompatActivity() {
