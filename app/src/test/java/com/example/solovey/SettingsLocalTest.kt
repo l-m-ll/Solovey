@@ -5,7 +5,7 @@ import org.junit.*
 import org.junit.Assert.assertEquals
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.runners.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -14,25 +14,36 @@ class SettingsLocalTest {
     private lateinit var volumeView: TextView
     @Mock
     private lateinit var volumeTextView: TextView
+    @Mock
+    private lateinit var usernameView: TextView
 
     @Before
     fun initSettings() {
         Settings.volumeView = volumeView
         Settings.volumeTextView = volumeTextView
+        Settings.userNameView = usernameView
     }
     @Test
-    fun decVolume() {
+    fun decVolumeValue() {
         val initValue = Settings.volume
         Settings.decrementVolume()
-        verify(volumeView).text = Settings.volume.toString()
         assertEquals(initValue - 1, Settings.volume)
     }
     @Test
-    fun incVolume() {
+    fun decVolumeDisplay() {
+        Settings.decrementVolume()
+        verify(volumeView).text = Settings.volume.toString()
+    }
+    @Test
+    fun incVolumeValue() {
         val initValue = Settings.volume
         Settings.incrementVolume()
-        verify(volumeView).text = Settings.volume.toString()
         assertEquals(initValue + 1, Settings.volume)
+    }
+    @Test
+    fun incVolumeDisplay() {
+        Settings.incrementVolume()
+        verify(volumeView).text = Settings.volume.toString()
     }
     @Test
     fun setColorViewsColor() {
@@ -41,7 +52,11 @@ class SettingsLocalTest {
         verify(volumeTextView).setBackgroundColor(R.color.blue)
     }
     @Test
-    fun setUserName() {
+    fun getUserName() {
+        assertEquals(Settings.getUserName(), Settings.getUserName())
+    }
+    @Test
+    fun setUserNameValue() {
         var result =
         Settings.setUserName("asdf")
         assertEquals(Settings.getUserName(), "asdf")
@@ -50,5 +65,12 @@ class SettingsLocalTest {
         result = Settings.setUserName("...")
         assertEquals(Settings.getUserName(), "asdf")
         assertEquals(result, false)
+    }
+    @Test
+    fun setNameDisplay() {
+        Settings.setUserName("....")
+        verify(usernameView, never()).text = Settings.getUserName()
+        Settings.setUserName("asdf")
+        verify(usernameView).text = Settings.getUserName()
     }
 }
