@@ -3,6 +3,7 @@ package com.example.solovey
 import android.widget.TextView
 import org.junit.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
@@ -26,6 +27,7 @@ class SettingsLocalTest {
         Settings.decrementVolume()
         verify(volumeView).text = Settings.volume.toString()
         assertEquals(initValue - 1, Settings.volume)
+        //assertFalse(true);
     }
     @Test
     fun incVolume() {
@@ -50,5 +52,10 @@ class SettingsLocalTest {
         result = Settings.setUserName("...")
         assertEquals(Settings.getUserName(), "asdf")
         assertEquals(result, false)
+    }
+
+    @Test
+    fun shouldFail() {
+        assertFalse(true);
     }
 }

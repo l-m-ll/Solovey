@@ -12,7 +12,7 @@ import org.junit.Test
 
 @RunWith(AndroidJUnit4::class)
 class SettingsTest {
-    @get:Rule
+    @Rule @JvmField
     val rule = ActivityScenarioRule(SettingsActivity::class.java)
 
     @Test

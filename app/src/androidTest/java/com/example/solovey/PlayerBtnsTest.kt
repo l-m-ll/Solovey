@@ -1,25 +1,29 @@
 package com.example.solovey
 
-import android.graphics.ColorSpace.match
+import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import junit.framework.Assert.assertEquals
-import org.junit.Assert
-import org.junit.Assert.assertNotEquals
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class PlayerBtnsTest {
-    @get:Rule
-    val rule = ActivityScenarioRule(activity_play::class.java)
+    @After
+    fun after() {
+        Espresso.pressBackUnconditionally()
+    }
 
     @Test
     fun checkBtnsExistance() {
+        ActivityScenario.launch(activity_play::class.java);
         onView(withId(R.id.pause)).check(matches(isDisplayed()))
         onView(withId(R.id.gofor)).check(matches(isDisplayed()))
         onView(withId(R.id.goback)).check(matches(isDisplayed()))
@@ -28,6 +32,7 @@ class PlayerBtnsTest {
 
     @Test
     fun getFirstSong () {
+        ActivityScenario.launch(activity_play::class.java);
         var storage = MusicStorageTest()
         var song = storage.next()
         var songName = storage.getName()
@@ -36,6 +41,7 @@ class PlayerBtnsTest {
 
     @Test
     fun initPlayer() {
+        ActivityScenario.launch(activity_play::class.java);
         var player = MediaPlayerStub();
         var storage = MusicStorageTest()
         var song = storage.next()
@@ -49,6 +55,7 @@ class PlayerBtnsTest {
 
     @Test
     fun releasePlayer () {
+        ActivityScenario.launch(activity_play::class.java);
         var player = MediaPlayerStub();
         player.startPlayer()
         player.releasePlayer()
@@ -57,6 +64,7 @@ class PlayerBtnsTest {
 
     @Test
     fun clickPauseBtn() {
+        ActivityScenario.launch(activity_play::class.java);
         var player = MediaPlayerStub();
         player.startPlayer()
         assertEquals( "player should be playing", true, player.isSongPlaying())
@@ -69,6 +77,7 @@ class PlayerBtnsTest {
 
     @Test
     fun clickGoForBtn() {
+        ActivityScenario.launch(activity_play::class.java);
         var player = MediaPlayerStub();
         player.startPlayer()
         assertEquals("song names should be the same", "Solovey 1", player.getSongName())
@@ -79,6 +88,7 @@ class PlayerBtnsTest {
 
     @Test
     fun clickGoBackBtn() {
+        ActivityScenario.launch(activity_play::class.java);
         var player = MediaPlayerStub();
         player.startPlayer()
         assertEquals("song names should be the same", "Solovey 1", player.getSongName())
