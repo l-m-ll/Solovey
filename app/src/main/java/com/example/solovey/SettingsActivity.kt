@@ -1,6 +1,5 @@
 package com.example.solovey
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -19,9 +18,9 @@ open class SettingsActivity : AppCompatActivity() {
         sndDownButton = findViewById(R.id.snd_down)
         sndUpButton = findViewById(R.id.snd_up)
 
-
         Settings.volumeView = volumeView
         Settings.volumeTextView = findViewById(R.id.volume_text)
+        Settings.userNameView = findViewById(R.id.username)
         Settings.updateVolume()
 
         sndDownButton.setOnClickListener { Settings.decrementVolume() }

@@ -7,7 +7,8 @@ import android.widget.TextView
 object Settings {
     lateinit var volumeView: TextView
     lateinit var volumeTextView: TextView
-    private var userName = "default"
+    lateinit var userNameView: TextView
+    private var userName = "Miroso"
     var volume = 20
 
     fun incrementVolume() {
@@ -33,6 +34,7 @@ object Settings {
         val forbiddenSymbols = listOf('.', ',', ':', ';')
         return if (!forbiddenSymbols.any { it in name }) {
             userName = name
+            userNameView.text = userName
             true
         } else false
     }
