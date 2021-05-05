@@ -55,13 +55,12 @@ jobs:
             chmod +x ./gradlew
             ./gradlew build
             ls
-            cd app/build/outputs/apk/debug/app-debug.apk
         - name: Upload binaries to release
-          uses: svenstaro/upload-release-action@v2
+          uses: actions/upload-release-action@v2
           with:
               repo_token: ${{ secrets.GITHUB_TOKEN }}
               file: app/build/outputs/apk/debug/app-debug.apk
-              asset_name: mything
+              asset_name: solovey
               tag: ${{ github.ref }}
               overwrite: true
               body: "This is my release text"
