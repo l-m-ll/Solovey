@@ -39,13 +39,13 @@ jobs:
           run: |
             chmod +x ./gradlew
             ./gradlew build
-            tagN=$(head -1 ./versions.txt) 
+            github.ref=$(head -1 ./versions.txt) 
         - name: Post release
           uses: underwindfall/create-release-with-debugapk@v2.0.0
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ tagN }}
+            tag_name: ${{ github.ref }}
             asset_path: app/build/outputs/apk/debug/app-debug.apk
             asset_name: Solovey.apk
             asset_content_type: application/zip
