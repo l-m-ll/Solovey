@@ -56,7 +56,7 @@ jobs:
             ./gradlew build
             ls
         - name: Upload binaries to release
-          uses: actions/upload-release-action@v2
+          uses: solovey/upload-release-action@v2
           with:
               repo_token: ${{ secrets.GITHUB_TOKEN }}
               file: app/build/outputs/apk/debug/app-debug.apk
