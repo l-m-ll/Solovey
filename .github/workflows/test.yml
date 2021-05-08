@@ -20,7 +20,7 @@ jobs:
      steps:
       - name: Step 1
         id: step1
-        run: echo "::set-output name=VAR1::$(head -1 ./versions.txt)"
+        run: echo "::set-output name=VAR1::$(ls)"
 
       - name: emit env
         run: |
