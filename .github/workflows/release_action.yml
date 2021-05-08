@@ -36,16 +36,20 @@ jobs:
 
         # Runs a single command using the runners shell
         - name: Build
+          id: b1
           run: |
             chmod +x ./gradlew
             ./gradlew build
-            github.ref=$(head -1 ./versions.txt) 
+            tmp=$(head -1 ./versions.txt)
+            echo "::set-output name=Ver::$tmp" 
+      
         - name: Post release
           uses: underwindfall/create-release-with-debugapk@v2.0.0
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            Ver: ${{ steps.b1.outputs.Ver }}
           with:
-            tag_name: ${{ github.ref }}
+            tag_name: ${{ steps.b1.outputs.Ver }}
             asset_path: app/build/outputs/apk/debug/app-debug.apk
             asset_name: Solovey.apk
             asset_content_type: application/zip
