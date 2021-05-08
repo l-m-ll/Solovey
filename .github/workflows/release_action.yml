@@ -27,7 +27,7 @@ jobs:
             chmod +x ./gradlew
             ./gradlew testDebugUnitTest
 
-  Build and Release:
+  Build_and_release:
      runs-on: ubuntu-latest
       # Steps represent a sequence of tasks that will be executed as part of the job
      needs: Tests
