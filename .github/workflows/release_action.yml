@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
        
-  tests:
+  Tests:
      runs-on: ubuntu-latest
       # Steps represent a sequence of tasks that will be executed as part of the job
      steps:
@@ -27,16 +27,16 @@ jobs:
             chmod +x ./gradlew
             ./gradlew testDebugUnitTest
 
-  gradlew_build:
+  Build and Release:
      runs-on: ubuntu-latest
       # Steps represent a sequence of tasks that will be executed as part of the job
-     needs: tests
+     needs: Tests
      steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v2
 
         # Runs a single command using the runners shell
-        - name: Build and Release
+        - name: gradlew_build
           id: b1
           run: |
             chmod +x ./gradlew
