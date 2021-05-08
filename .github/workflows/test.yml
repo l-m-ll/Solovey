@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI test
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  release:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+       
+  tests:
+     runs-on: ubuntu-latest
+      # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Step 1
+      id: step1
+      run: echo "::set-output name=VAR1::Hamel"
+
+    - name: Step 2
+      id: step2
+      run: echo "::set-env name=VAR2::Husain"
+
+    - name: emit env
+      run: |
+       echo $VAR2
+       echo $VAR1
+        
+      env:
+        VAR1: ${{ steps.step1.outputs.VAR1 }}
+
+    - name: this should not run
+      run: echo "This should not run"
+      if: steps.step1.outputs.VAR1 == 'Lucy'
+  gradlew_build:
+     runs-on: ubuntu-latest
+      # Steps represent a sequence of tasks that will be executed as part of the job
+     steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v2
+
+        # Runs a single command using the runners shell
+        - name: Build
+          run: |
+            chmod +x ./gradlew
+            ./gradlew build
+            github.ref=$(head -1 ./versions.txt) 
+        - name: Post release
+          uses: underwindfall/create-release-with-debugapk@v2.0.0
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ github.ref }}
+            asset_path: app/build/outputs/apk/debug/app-debug.apk
+            asset_name: Solovey.apk
+            asset_content_type: application/zip
+            
