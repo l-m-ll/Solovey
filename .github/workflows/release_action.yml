@@ -49,7 +49,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             Ver: ${{ steps.b1.outputs.Ver }}
           with:
-            tag_name: $Ver
+            tag_name: ${{ steps.b1.outputs.Ver }}
             asset_path: app/build/outputs/apk/debug/app-debug.apk
             asset_name: Solovey.apk
             asset_content_type: application/zip
