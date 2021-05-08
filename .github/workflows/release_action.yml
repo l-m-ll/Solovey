@@ -41,16 +41,24 @@ jobs:
           run: |
             chmod +x ./gradlew
             ./gradlew build
-            tmp=$(head -1 ./versions.txt)
-            echo "::set-output name=Ver::$tmp" 
-      
+          
+  post_release:
+     runs-on: ubuntu-latest
+     needs: gradlew_build
+     steps:
+        - name: Get version
+          id: getV
+          run: |
+              tmp=$(head -1 ./versions.txt)
+              echo "::set-output name=Ver::$tmp"
+            
         - name: Post release
           uses: underwindfall/create-release-with-debugapk@v2.0.0
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            Ver: ${{ steps.b1.outputs.Ver }}
+            Ver: ${{ steps.getV.outputs.Ver }}
           with:
-            tag_name: ${{ steps.b1.outputs.Ver }}
+            tag_name: ${{ steps.getV.outputs.Ver }}
             asset_path: app/build/outputs/apk/debug/app-debug.apk
             asset_name: Solovey.apk
             asset_content_type: application/zip
