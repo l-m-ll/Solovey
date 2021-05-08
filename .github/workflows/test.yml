@@ -20,7 +20,7 @@ jobs:
      steps:
       - name: Step 1
         id: step1
-        run: echo "::set-output name=VAR1::$(ls)"
+        run: echo "::set-output name=VAR1::text"
 
       - name: emit env
         run: |
