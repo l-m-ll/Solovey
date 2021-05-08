@@ -20,15 +20,10 @@ jobs:
      steps:
       - name: Step 1
         id: step1
-        run: echo "::set-output name=VAR1::Hamel"
-
-      - name: Step 2
-        id: step2
-        run: echo "::set-output name=VAR2::Husain"
+        run: echo "::set-output name=VAR1::$(head -1 versions.txt)"
 
       - name: emit env
         run: |
-          echo $VAR2
           echo $VAR1
         
         env:
