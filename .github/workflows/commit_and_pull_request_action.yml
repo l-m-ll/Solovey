@@ -6,9 +6,9 @@ name: CI tests
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ play_list, dev, settings_dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ play_list, dev, settings_dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
